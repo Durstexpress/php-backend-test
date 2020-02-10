@@ -1,5 +1,18 @@
 # Durstexpress PHP test
 
+### Tour task: 
+0. Setup environment as described in next section ( see [setup](#setup))
+
+1. Create basic CRUD operations for Drinks management (name, type, contains alcohol, price, bottle deposit price, package) 
+
+2. Add validation to your form 
+
+3. (Optional, good to have) Expose also API endpoints for each operation 
+
+_No requirement to finish test completely. You should not spend more than 3-4 hours, just push your solution._ 
+
+As result we are expecting to receive pull request with name in format <TEST-YOUR_NAME>.  
+
 
 ### Setup
 
@@ -52,14 +65,4 @@ composer install
 
  
 
-### Tour task: 
 
-1. Create basic CRUD operations for Drinks management (name, type, contains alcohol, price, bottle deposit price, package) 
-
-2. Add validation to your form 
-
-3. (Optional, good to have) Expose also API endpoints for each operation 
-
-_No requirement to finish test completely. You should not spend more than 3-4 hours, just push your solution._ 
-
-As result we are expecting to receive pull request with name in format <TEST-YOUR_NAME>.  
