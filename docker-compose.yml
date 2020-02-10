@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+    ports:
+      - '8085:80/tcp' # <--- change to any free port on yours machine
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - 'APP_ENV=dev'
+      - 'APP_SECRET=14523d2734f4c2a13137acc93ae9774a'
