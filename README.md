@@ -1,6 +1,6 @@
 # Durstexpress PHP test
 
-### Tour task: 
+### Your task: 
 0. Setup environment as described in next section ( see [setup](#setup))
 
 1. Create basic CRUD operations for Drinks management (name, type, contains alcohol, price, bottle deposit price, package) 
@@ -61,7 +61,7 @@ docker-compose exec -u 1000 app bash # connected to container as regular user
 composer install
 ```
 
-##### 6. You are done. Now you can test service by url `http://localhost:8000` or `localhost:<port_that_you_put_in_compose_file>`
+##### 6. You are done. Now you can test service by url [http://localhost:8000](http://localhost:8000) or `localhost:<port_that_you_put_in_compose_file>`
 
  
 
