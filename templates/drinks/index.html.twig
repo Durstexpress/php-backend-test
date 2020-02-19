@@ -37,7 +37,7 @@
                 <td>{{ drink.price }}</td>
                 <td>{{ drink.bottleDepositPrice }}</td>
                 <td>{{ drink.package }}</td>
-                <td>{{ drink.containsAlcohol }}</td>
+                <td>{{ drink.containsAlcohol ? 'Yes':'No' }}</td>
                 <td><a class="btn btn-primary" href="/drinks/edit/{{ drink.id }}" role="button">Edit</a></td>
                 <td><button onclick="deleteDrink({{ drink.id }})">Delete</button></td>
             </tr>

@@ -9,7 +9,6 @@ use App\Entity\Drink;
 use App\Form\DrinksType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DrinksController extends AbstractController
@@ -98,9 +97,7 @@ class DrinksController extends AbstractController
 		if(!$request->isXmlHttpRequest()) {
 			return $this->redirectToRoute('drinks');
 		}
-		$id = $request->request->get('id', 0);
-		/** @var DrinkService $drinksClient */
-		#$drinksClient = $this->get('drinks.doctrine');
+		$id = (int)$request->request->get('id', 0);
 		try {
 			$drinksClient->delete($id);
 		} catch (DrinkException $e) {

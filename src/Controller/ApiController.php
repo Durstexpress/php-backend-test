@@ -42,7 +42,7 @@ class ApiController extends AbstractController
 	/**
 	 * @Route("/api/v1/drink/{id}", name="api_drink_get", requirements={"id"="\d+"}, methods={"GET"})
 	 */
-	public function get(DrinkService $drinksClient, int $id)
+	public function getOne(DrinkService $drinksClient, int $id)
 	{
 		try {
 			$drink = $drinksClient->findById($id);
