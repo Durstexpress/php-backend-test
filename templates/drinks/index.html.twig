@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DrinksController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            Ups something went wrong
+        </div>
+    {% endif %}
+    <a class="btn btn-primary" href="/drinks/add" role="button">Add</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Type</th>
+            <th scope="col">Price</th>
+            <th scope="col">Bottle Deposit Price</th>
+            <th scope="col">Package</th>
+            <th scope="col">Contains Alcohol</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for drink in drinks %}
+            <tr>
+                <th scope="row">{{ drink.id }}</th>
+                <td>{{ drink.name }}</td>
+                <td>{{ drink.type }}</td>
+                <td>{{ drink.price }}</td>
+                <td>{{ drink.bottleDepositPrice }}</td>
+                <td>{{ drink.package }}</td>
+                <td>{{ drink.containsAlcohol }}</td>
+                <td><a class="btn btn-primary" href="/drinks/edit/{{ drink.id }}" role="button">Edit</a></td>
+                <td><button onclick="deleteDrink({{ drink.id }})">Delete</button></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    function deleteDrink(id) {
+        $.post( "/drinks/delete", { id: id } ).done(function( data ) {
+            if(data.message === 'error') {
+                //TODO Error Handling
+            }
+            if(data.message === 'success') {
+                window.location.reload();
+            }
+        });
+    }
+</script>
+{% endblock %}
+

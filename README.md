@@ -63,6 +63,8 @@ composer install
 
 ##### 6. You are done. Now you can test service by url [http://localhost:8000](http://localhost:8000) or `localhost:<port_that_you_put_in_compose_file>`
 
- 
+bin/console doctrine:database:create
+bin/console make:migration
+bin/console doctrine:migrations:migrate
 
 

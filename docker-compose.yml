@@ -6,9 +6,32 @@ services:
       context: ./
       dockerfile: docker/Dockerfile
     ports:
-      - '8085:80/tcp' # <--- change to any free port on yours machine
+      - '8000:80/tcp' # <--- change to any free port on yours machine
     volumes:
       - ./:/var/www/html
     environment:
       - 'APP_ENV=dev'
       - 'APP_SECRET=14523d2734f4c2a13137acc93ae9774a'
+
+  mysql:
+    image: mysql:5.6
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: default_schema
+      TZ: Europe/Berlin
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8183:80
