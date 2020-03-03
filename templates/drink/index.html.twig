@@ -10,6 +10,7 @@
             {% for drink in drinks %}
                 <tr>
                     <td>{{ drink.getName }}</td>
+                    <td><a href="{{ path('drink_show', {id: drink.getId}) }}">Show</a></td>
                     <td><a href="{{ path('drink_edit', {id: drink.getId}) }}">Edit</a></td>
                     <td><a href="{{ path('drink_delete', {id: drink.getId}) }}">Delete</a></td>
                 </tr>

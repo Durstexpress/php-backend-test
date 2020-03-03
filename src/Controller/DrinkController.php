@@ -60,6 +60,16 @@ class DrinkController extends AbstractController
     }
 
     /**
+     * @Route("/show/{id}", name="show")
+     */
+    public function show(Drink $drink): Response
+    {
+        return $this->render('drink/show.html.twig', [
+            'drink' => $drink,
+        ]);
+    }
+
+    /**
      * @Route("/edit/{id}", name="edit")
      */
     public function edit(Request $request, Drink $drink): Response

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Drink</h1>
+
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>{{ drink.getName }}</td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td>{{ drink.getType }}</td>
+        </tr>
+        <tr>
+            <td>Contains alcohol</td>
+            <td>{{ drink.getContainsAlcohol ? 'Yes' : 'No' }}</td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>{{ drink.getPrice|localizedcurrency('EUR') }}</td>
+        </tr>
+        <tr>
+            <td>Bottle deposit price</td>
+            <td>{{ drink.getBottleDepositPrice|localizedcurrency('EUR') }}</td>
+        </tr>
+        <tr>
+            <td>Package</td>
+            <td>{{ drink.getPackage }}</td>
+        </tr>
+    </table>
+{% endblock %}
