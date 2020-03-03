@@ -12,3 +12,6 @@
 * Everything should be tested. I'm happy to send over other code challenges which include automated tests.
 * Error handling
 * Styling
+* Flash messages
+* Confirmation before deletion
+* View data (currently only possibility is to edit a drink)

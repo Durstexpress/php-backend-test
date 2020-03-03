@@ -18,10 +18,10 @@ class DrinkType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('type', TextType::class)
-            ->add('containsAlcohol', CheckboxType::class)
+            ->add('containsAlcohol', CheckboxType::class, ['required' => false])
             ->add('price', MoneyType::class)
             ->add('bottleDepositPrice', MoneyType::class)
-            ->add('package', TextType::class)
+            ->add('package', TextType::class, ['required' => false])
             ->add('save', SubmitType::class)
         ;
     }
