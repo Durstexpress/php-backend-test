@@ -6,10 +6,13 @@
 # Notes
 * The clone URL in your readme seems incorrect. I cloned this repository instead.
 * I'm assuming I should create my own storage so I chose MySQL.
+* I injected the entity manager and the repository to simplify future testing.
+* There's a lot of logic in the controller which is fine for the current use case. In bigger applications I would split this up into different classes and keep the controllers small.
+* I recently did code challenges for other companies which included building a REST API and automated testing. If you're interested in any of these, let me know.
 
 # Todo
 * MySQL credentials could be taken from environment variables
-* Everything should be tested. I'm happy to send over other code challenges which include automated tests.
+* Tests
 * Error handling
 * Styling
 * Flash messages
