@@ -6,9 +6,19 @@ services:
       context: ./
       dockerfile: docker/Dockerfile
     ports:
-      - '8085:80/tcp' # <--- change to any free port on yours machine
+      - '8000:80/tcp' # <--- change to any free port on yours machine
     volumes:
       - ./:/var/www/html
     environment:
       - 'APP_ENV=dev'
       - 'APP_SECRET=14523d2734f4c2a13137acc93ae9774a'
+  db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: someRootPassword
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: someUserPassword
+    ports:
+      - "9906:3306"

@@ -25,6 +25,8 @@ RUN rm /usr/local/etc/php-fpm.d/zz-docker.conf
 RUN cp docker/config/php/php.ini "$PHP_INI_DIR/php.ini"
 RUN cp docker/config/php/php-fpm.conf "/usr/local/etc/php-fpm.d/www.conf"
 
+RUN docker-php-ext-install pdo_mysql
+
 ADD docker/start.sh /
 RUN chmod +x /start.sh
 

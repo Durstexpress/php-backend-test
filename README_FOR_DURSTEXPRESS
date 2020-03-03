@@ -1,0 +1,6 @@
+Notes:
+* The clone URL in your readme seems incorrect. I cloned this repository instead.
+* I'm assuming I should create my own storage so I chose MySQL.
+
+Todo:
+* MySQL credentials could be taken from environment variables
