@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Drinks</h1>
+
+    <a href="{{ path('drink_add') }}">Add drink</a>
+
+    {% if drinks %}
+        <table>
+            {% for drink in drinks %}
+                <tr>
+                    <td>{{ drink.getName }}</td>
+                    <td><a href="{{ path('drink_edit', {id: drink.getId}) }}">Edit</a></td>
+                    <td><a href="{{ path('drink_delete', {id: drink.getId}) }}">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No drinks, please add one.</p>
+    {% endif %}
+{% endblock %}

@@ -1,6 +1,14 @@
-Notes:
+# Setup
+1. Follow normal setup from README.md
+2. Run `bin/console doctrine:migrations:migrate` inside app container
+3. Go to http://localhost:8000/drink/index
+
+# Notes
 * The clone URL in your readme seems incorrect. I cloned this repository instead.
 * I'm assuming I should create my own storage so I chose MySQL.
 
-Todo:
+# Todo
 * MySQL credentials could be taken from environment variables
+* Everything should be tested. I'm happy to send over other code challenges which include automated tests.
+* Error handling
+* Styling
