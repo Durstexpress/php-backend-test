@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ drink.name }}{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12">
+        {% include 'drink/card.html.twig' %}
+    </div>
+</div>
+{% endblock %}

@@ -21,7 +21,7 @@ services:
       - 'APP_ENV=dev'
       - 'APP_DEBUG=1'
       - 'APP_SECRET=14523d2734f4c2a13137acc93ae9774a'
-      - 'DATABASE_URL=mysql://admin:admin@db:3306/php-backend-test?serverVersion=5.7'
+      - 'DATABASE_URL=mysql://admin:admin@db:3306/php-backend-test-db?serverVersion=5.7'
     command: dev ${UID}:${GID}
 
   db:
@@ -31,7 +31,7 @@ services:
     network_mode: bridge
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: php-backend-test
+      MYSQL_DATABASE: php-backend-test-db
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
       MYSQL_LOG_CONSOLE: 1

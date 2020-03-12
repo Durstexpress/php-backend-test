@@ -1,0 +1,16 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ drink.name }}</h5>
+        <p class="card-text">
+            <span class="d-block">Price: {{ drink.price|format_currency('EUR') }}</span>
+            <span class="d-block text-secondary">Bottle Deposit: {{ drink.bottleDepositPrice|format_currency('EUR') }}</span>
+            <span class="badge badge-primary">{{ drink.type.name }}</span>
+            {% if drink.containsAlcohol %}
+                <span class="badge badge-danger">Alcoholic</span>
+            {% endif %}
+        </p>
+        <a href="{{ path('drink-details', {id: drink.id}) }}" class="card-link">View</a>
+        <a href="{{ path('drink-update', {id: drink.id}) }}" class="card-link">Edit</a>
+        <a href="{{ path('drink-delete', {id: drink.id}) }}" class="card-link">Delete</a>
+    </div>
+</div>

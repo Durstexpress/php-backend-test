@@ -9,6 +9,13 @@ function installDevDependencies()
     composer install --no-suggest
 }
 
+function migrateDatabase()
+{
+    echo "--- Migrating DB ---"
+    cd "$APP_DIR" || exit
+    composer run-script migrate
+}
+
 if [ "$1" = "test" ]; then
     installDevDependencies
 
@@ -17,6 +24,8 @@ if [ "$1" = "test" ]; then
     exit $?
 elif [ "$1" = "dev" ]; then
     installDevDependencies
+
+    migrateDatabase
 
     php-fpm && nginx -g "daemon off;"
 elif [ -z "$1" ]; then

@@ -3,7 +3,7 @@ GID ?= $(shell id -g)
 
 install:
 	# Hint: force a rebuild by passing --no-cache
-	@UID=$(UID) GID=$(GID) docker-compose build app
+	@UID=$(UID) GID=$(GID) docker-compose build --no-cache app
 .PHONY: install-web
 
 start:
@@ -17,6 +17,11 @@ stop:
 tests:
 	@UID=$(UID) GID=$(GID) docker-compose run --rm app test
 .PHONY: php-tests
+
+shell:
+	# Hint: adjust UID and GID to 0 if you want to use the shell as root
+	@UID=$(UID) GID=$(GID) docker-compose run --rm -w /var/www/html -e SHELL_VERBOSITY=1 app bash
+.PHONY: shell
 
 watch-logs:
 	@UID=$(UID) GID=$(GID) docker-compose logs -f -t

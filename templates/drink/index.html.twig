@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %}Drinks{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% if drinks %}
+            {% for drink in drinks %}
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                    {% include 'drink/card.html.twig' %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">You haven't added any drinks yet.</h5>
+                        <div class="mb-4"></div>
+                        <div class="mb-4"></div>
+                        <a href="/drink/create" class="btn btn-primary text-white">Add Drink</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
