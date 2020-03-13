@@ -2,17 +2,6 @@
 
 namespace App\Exception;
 
-
-use Psr\Log\LogLevel;
-
-class AppException extends \Exception implements HasLogLevelInterface
+class AppException extends CustomException
 {
-
-    /**
-     * @inheritDoc
-     */
-    public function getLogLevel(): string
-    {
-        return LogLevel::CRITICAL;
-    }
 }

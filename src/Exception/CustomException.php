@@ -5,14 +5,14 @@ namespace App\Exception;
 use Psr\Log\LogLevel;
 use Symfony\Component\HttpFoundation\Response;
 
-class NotFoundException extends CustomException
+class CustomException extends \Exception implements HasLogLevelInterface
 {
     /**
      * {@inheritdoc}
      */
     public function getLogLevel(): string
     {
-        return LogLevel::INFO;
+        return LogLevel::CRITICAL;
     }
 
     /**
@@ -20,6 +20,6 @@ class NotFoundException extends CustomException
      */
     public function getStatusCode()
     {
-        return Response::HTTP_NOT_FOUND;
+        return Response::HTTP_SERVICE_UNAVAILABLE;
     }
 }

@@ -1,17 +1,15 @@
 <?php
 
-
 namespace App\Exception;
-
 
 use Exception;
 
 abstract class ExceptionHandler
 {
-
     /**
      * @param Exception $exception
-     * @param string $errorMessage
+     * @param string    $errorMessage
+     *
      * @return Exception
      */
     public static function handleException($exception, $errorMessage)
@@ -22,8 +20,8 @@ abstract class ExceptionHandler
 
             default:
                 $message = $errorMessage ? $errorMessage : $exception->getMessage();
+
                 return new AppException($message);
         }
     }
-
 }

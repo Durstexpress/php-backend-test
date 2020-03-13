@@ -11,9 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class DrinkController.
+ */
 class DrinkController extends AbstractController
 {
-
     /** @var DrinkService */
     private $drinkService;
 
@@ -24,7 +26,6 @@ class DrinkController extends AbstractController
 
     /**
      * @Route("/", name="drink-list")
-     * @return Response
      */
     public function index(): Response
     {
@@ -42,9 +43,7 @@ class DrinkController extends AbstractController
     }
 
     /**
-     * @Route("/drink/create", name="drink-create")
-     * @param Request $request
-     * @return Response
+     * @Route("/drinks/create", name="drink-create")
      */
     public function add(Request $request): Response
     {
@@ -66,9 +65,7 @@ class DrinkController extends AbstractController
     }
 
     /**
-     * @Route("/drink/{id}", name="drink-details")
-     * @param int $id
-     * @return Response
+     * @Route("/drinks/{id}", name="drink-details")
      */
     public function show(int $id): Response
     {
@@ -84,10 +81,7 @@ class DrinkController extends AbstractController
     }
 
     /**
-     * @Route("/drink/{id}/edit", name="drink-update")
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     * @Route("/drinks/{id}/edit", name="drink-update")
      */
     public function edit(Request $request, int $id): Response
     {
@@ -112,9 +106,7 @@ class DrinkController extends AbstractController
     }
 
     /**
-     * @Route("/drink/{id}/delete", name="drink-delete")
-     * @param int $id
-     * @return Response
+     * @Route("/drinks/{id}/delete", name="drink-delete")
      */
     public function delete(int $id): Response
     {
@@ -128,8 +120,6 @@ class DrinkController extends AbstractController
     }
 
     /**
-     * @param Request $request
-     * @param Drink $drink
      * @return FormInterface
      */
     protected function getDrinkForm(Request $request, Drink $drink)

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Service;
-
 
 use App\Entity\Drink;
 use App\Exception\ExceptionHandler;
@@ -13,13 +11,11 @@ use Exception;
 
 class DrinkService implements DrinkServiceInterface
 {
-
-    /** @var EntityManagerInterface  */
+    /** @var EntityManagerInterface */
     private $entityManager;
 
     /**
      * DrinkService constructor.
-     * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -27,7 +23,8 @@ class DrinkService implements DrinkServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
+     *
      * @throws Exception
      */
     public function getAllDrinks(): array
@@ -35,17 +32,13 @@ class DrinkService implements DrinkServiceInterface
         try {
             return $this->getRepository()->findAll();
         } catch (Exception $exception) {
-            throw ExceptionHandler::handleException(
-                $exception,
-                'Error getting all drinks.'
-            );
+            throw ExceptionHandler::handleException($exception, 'Error getting all drinks.');
         }
     }
 
     /**
-     * @inheritDoc
-     * @param int $drinkId
-     * @return Drink
+     * {@inheritdoc}
+     *
      * @throws Exception
      */
     public function getDrinkById(int $drinkId): Drink
@@ -54,23 +47,19 @@ class DrinkService implements DrinkServiceInterface
             /** @var Drink $drink */
             $drink = $this->getRepository()->find($drinkId);
 
-            if($drink === null) {
-                throw new NotFoundException(sprintf('Drink with ID "%s" was not found  ', $drinkId));
+            if (null === $drink) {
+                throw new NotFoundException(sprintf('Drink with ID "%s" was not found', $drinkId));
             }
 
             return $drink;
         } catch (Exception $exception) {
-            throw ExceptionHandler::handleException(
-                $exception,
-                'Error getting drink by ID.'
-            );
+            throw ExceptionHandler::handleException($exception, 'Error getting drink by ID.');
         }
     }
 
     /**
-     * @inheritDoc
-     * @param Drink $drink
-     * @return Drink
+     * {@inheritdoc}
+     *
      * @throws Exception
      */
     public function createDrink(Drink $drink): Drink
@@ -79,9 +68,8 @@ class DrinkService implements DrinkServiceInterface
     }
 
     /**
-     * @inheritDoc
-     * @param Drink $drink
-     * @return Drink
+     * {@inheritdoc}
+     *
      * @throws Exception
      */
     public function updateDrink(Drink $drink): Drink
@@ -93,16 +81,13 @@ class DrinkService implements DrinkServiceInterface
 
             return $drink;
         } catch (Exception $exception) {
-            throw ExceptionHandler::handleException(
-                $exception,
-                'Error updating drink.'
-            );
+            throw ExceptionHandler::handleException($exception, 'Error updating drink.');
         }
     }
 
     /**
-     * @inheritDoc
-     * @param int $drinkId
+     * {@inheritdoc}
+     *
      * @throws Exception
      */
     public function deleteDrinkById(int $drinkId): void
@@ -111,16 +96,13 @@ class DrinkService implements DrinkServiceInterface
             $this->entityManager->remove($this->getDrinkById($drinkId));
             $this->entityManager->flush();
         } catch (Exception $exception) {
-            throw ExceptionHandler::handleException(
-                $exception,
-                'Error deleting drink.'
-            );
+            throw ExceptionHandler::handleException($exception, 'Error deleting drink.');
         }
     }
 
     /**
-     * @param Drink $drink
      * @return Drink
+     *
      * @throws Exception
      */
     protected function persist(Drink $drink)
@@ -131,16 +113,10 @@ class DrinkService implements DrinkServiceInterface
 
             return $drink;
         } catch (Exception $exception) {
-            throw ExceptionHandler::handleException(
-                $exception,
-                'Error saving drink.'
-            );
+            throw ExceptionHandler::handleException($exception, 'Error saving drink.');
         }
     }
 
-    /**
-     * @return ObjectRepository
-     */
     protected function getRepository(): ObjectRepository
     {
         return $this->entityManager->getRepository(Drink::class);

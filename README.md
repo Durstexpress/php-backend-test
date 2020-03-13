@@ -47,7 +47,7 @@ make watch-logs
 
 ### Viewing Application
 
-Application can be viewed in brower by visiting [http://localhost:11091/](http://localhost:11091/)
+Application can be viewed in brower by visiting [http://localhost:11091/](http://localhost:11091/). Some API are also exposed for performing CRUD operations. Check [here](http://localhost:11091/api/doc) for the documentation.
  
 
 

@@ -3,10 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Swagger\Annotations as SWG;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DrinkRepository")
+ * @Serializer\ExclusionPolicy("all")
  */
 class Drink
 {
@@ -16,6 +20,8 @@ class Drink
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @SWG\Property(description="The unique identifier of the drink.")
+     * @Serializer\Expose()
      */
     private $id;
 
@@ -26,33 +32,49 @@ class Drink
      *      min = 2,
      *      max = 255,
      * )
+     * @SWG\Property(description="The name of the drink.")
+     * @Serializer\Expose()
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\DrinkType", inversedBy="drinks")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
+     * @SWG\Property(description="The type of the drink.", ref=@Model(type=DrinkType::class))
+     * @Serializer\Expose()
      */
     private $type;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotBlank()
+     * @SWG\Property(description="The name of the drink.")
+     * @Serializer\Expose()
      */
     private $containsAlcohol;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank()
+     * @SWG\Property(description="Is the drink alcoholic.")
+     * @Serializer\Expose()
      */
     private $price;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank()
+     * @SWG\Property(description="Drink deposit price.")
+     * @Serializer\Expose()
      */
     private $bottleDepositPrice;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\Choice(choices=Drink::PACKAGES, message="Choose a valid package.")
+     * @SWG\Property(description="Drink bottle deposit price.")
+     * @Serializer\Expose()
      */
     private $package;
 
@@ -61,7 +83,6 @@ class Drink
         $this->id = $id;
 
         return $this;
-
     }
 
     public function getId(): ?int
