@@ -16,6 +16,8 @@ class DrinkController extends BaseController
 {
     /**
      * @Route("/", name="api_drink_index", methods={"GET"})
+     * @param DrinkRepository $drinkRepository
+     * @return Response
      */
     public function index(DrinkRepository $drinkRepository): Response
     {
@@ -24,6 +26,8 @@ class DrinkController extends BaseController
 
     /**
      * @Route("/new", name="api_drink_new", methods={"POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -45,17 +49,30 @@ class DrinkController extends BaseController
 
     /**
      * @Route("/{id}", name="api_drink_show", methods={"GET"})
+     * @param DrinkRepository $drinkRepository
+     * @param $id
+     * @return Response
      */
-    public function show(Drink $drink): Response
+    public function show(DrinkRepository $drinkRepository, $id): Response
     {
+        $drink = $drinkRepository->find($id);
+        if (!$drink)
+            return $this->respondWithError('Not found', [], Response::HTTP_NOT_FOUND);
         return $this->respondWithSuccess('', $drink);
     }
 
     /**
      * @Route("/{id}/edit", name="api_drink_edit", methods={"POST"})
+     * @param Request $request
+     * @param DrinkRepository $drinkRepository
+     * @param $id
+     * @return Response
      */
-    public function edit(Request $request, Drink $drink): Response
+    public function edit(Request $request, DrinkRepository $drinkRepository, $id): Response
     {
+        $drink = $drinkRepository->find($id);
+        if (!$drink)
+            return $this->respondWithError('Not found', [], Response::HTTP_NOT_FOUND);
         $form = $this->createForm(DrinkType::class, $drink);
         $data = $this->getInputFromRequest($request);
         $form->submit($data);
@@ -70,13 +87,25 @@ class DrinkController extends BaseController
 
     /**
      * @Route("/{id}", name="api_drink_delete", methods={"DELETE"})
+     * @param DrinkRepository $drinkRepository
+     * @param $id
+     * @return Response
      */
-    public function delete(Request $request, Drink $drink): Response
+    public function delete(DrinkRepository $drinkRepository, $id): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($drink);
-        $entityManager->flush();
+        $drink = $drinkRepository->find($id);
+        if (!$drink)
+            return $this->respondWithError('Not found', [], Response::HTTP_NOT_FOUND);
 
-        return $this->respondWithSuccess('Deleted');
+        try {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($drink);
+            $entityManager->flush();
+
+            return $this->respondWithSuccess('Deleted');
+        } catch (\Exception $exception) {
+            //return $this->respondWithError($exception->getMessage());
+            return $this->respondWithError('Something went wrong');
+        }
     }
 }

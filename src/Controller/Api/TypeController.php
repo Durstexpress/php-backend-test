@@ -16,6 +16,8 @@ class TypeController extends BaseController
 {
     /**
      * @Route("/", name="api_type_index", methods={"GET"})
+     * @param TypeRepository $typeRepository
+     * @return Response
      */
     public function index(TypeRepository $typeRepository): Response
     {
@@ -24,6 +26,8 @@ class TypeController extends BaseController
 
     /**
      * @Route("/new", name="api_type_new", methods={"POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -45,17 +49,30 @@ class TypeController extends BaseController
 
     /**
      * @Route("/{id}", name="api_type_show", methods={"GET"})
+     * @param TypeRepository $typeRepository
+     * @param $id
+     * @return Response
      */
-    public function show(Type $type): Response
+    public function show(TypeRepository $typeRepository, $id): Response
     {
+        $type = $typeRepository->find($id);
+        if (!$type)
+            return $this->respondWithError('Not found', [], Response::HTTP_NOT_FOUND);
         return $this->respondWithSuccess('', $type);
     }
 
     /**
      * @Route("/{id}/edit", name="api_type_edit", methods={"POST"})
+     * @param Request $request
+     * @param TypeRepository $typeRepository
+     * @param $id
+     * @return Response
      */
-    public function edit(Request $request, Type $type): Response
+    public function edit(Request $request, TypeRepository $typeRepository, $id): Response
     {
+        $type = $typeRepository->find($id);
+        if (!$type)
+            return $this->respondWithError('Not found', [], Response::HTTP_NOT_FOUND);
         $form = $this->createForm(TypeType::class, $type);
         $data = $this->getInputFromRequest($request);
         $form->submit($data);
@@ -71,9 +88,16 @@ class TypeController extends BaseController
 
     /**
      * @Route("/{id}", name="api_type_delete", methods={"DELETE"})
+     * @param TypeRepository $typeRepository
+     * @param $id
+     * @return Response
      */
-    public function delete(Request $request, Type $type): Response
+    public function delete(TypeRepository $typeRepository, $id): Response
     {
+        $type = $typeRepository->find($id);
+        if (!$type)
+            return $this->respondWithError('Not found', [], Response::HTTP_NOT_FOUND);
+
         try {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($type);
