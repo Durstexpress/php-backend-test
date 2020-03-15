@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\DrinkRepository")
  * @UniqueEntity(fields="name", message="Name is already taken.")
  */
-class Drink
+class Drink implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -130,5 +130,18 @@ class Drink
         $this->package = $package;
 
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id'    => $this->id,
+            'name'  => $this->name,
+            'type'  => $this->type,
+            'contains_alcohol'  => $this->contains_alcohol,
+            'price' => $this->price,
+            'bottle_deposit_price' => $this->bottle_deposit_price,
+            'package' => $this->package,
+        ];
     }
 }

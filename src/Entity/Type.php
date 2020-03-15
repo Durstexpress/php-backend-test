@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\TypeRepository")
  * @UniqueEntity(fields="name", message="Name is already taken.")
  */
-class Type
+class Type implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -40,5 +40,13 @@ class Type
         $this->name = $name;
 
         return $this;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id'    => $this->id,
+            'name'  => $this->name,
+        ];
     }
 }
