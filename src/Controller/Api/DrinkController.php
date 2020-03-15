@@ -40,7 +40,7 @@ class DrinkController extends BaseController
             return $this->respondWithSuccess('Drink added', [],Response::HTTP_CREATED);
         }
 
-        return $this->json($this->getErrorsFromForm($form), Response::HTTP_BAD_REQUEST);
+        return $this->respondWithError('Error', $this->getErrorsFromForm($form), Response::HTTP_BAD_REQUEST);
     }
 
     /**

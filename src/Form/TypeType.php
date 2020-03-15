@@ -20,6 +20,7 @@ class TypeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Type::class,
+            'csrf_protection' => false
         ]);
     }
 }
