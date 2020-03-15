@@ -33,6 +33,7 @@ class DrinkType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Drink::class,
+            'csrf_protection' => false
         ]);
     }
 }
