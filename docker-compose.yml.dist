@@ -12,3 +12,16 @@ services:
     environment:
       - 'APP_ENV=dev'
       - 'APP_SECRET=14523d2734f4c2a13137acc93ae9774a'
+    links:
+      - db
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - ~/.backup/mysql/webshop:/var/lib/mysql
+      - ./docker/config/mysql/mysql-custom.cnf:/etc/my.cnf
+    environment:
+      - "MYSQL_ROOT_PASSWORD=secret"
+      - "MYSQL_ROOT_USER=root"
+      - "MYSQL_DATABASE=webshop"
