@@ -6,20 +6,16 @@ use App\Entity\Drink;
 use App\Exception\ExceptionHandler;
 use App\Exception\NotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectRepository;
 use Exception;
 
-class DrinkService implements DrinkServiceInterface
+class DrinkService extends GenericService implements DrinkServiceInterface
 {
-    /** @var EntityManagerInterface */
-    private $entityManager;
-
     /**
      * DrinkService constructor.
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager, Drink::class);
     }
 
     /**
@@ -48,7 +44,7 @@ class DrinkService implements DrinkServiceInterface
             $drink = $this->getRepository()->find($drinkId);
 
             if (null === $drink) {
-                throw new NotFoundException(sprintf('Drink with ID "%s" was not found', $drinkId));
+                throw new NotFoundException(sprintf('Drink with ID %s was not found', $drinkId));
             }
 
             return $drink;
@@ -115,10 +111,5 @@ class DrinkService implements DrinkServiceInterface
         } catch (Exception $exception) {
             throw ExceptionHandler::handleException($exception, 'Error saving drink.');
         }
-    }
-
-    protected function getRepository(): ObjectRepository
-    {
-        return $this->entityManager->getRepository(Drink::class);
     }
 }

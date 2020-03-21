@@ -3,11 +3,17 @@
 namespace App\Controller\Api;
 
 use App\Entity\Drink;
+use App\Entity\DrinkRequest;
+use App\Exception\FormValidationException;
 use App\Service\DrinkService;
+use App\Service\DrinkTypeService;
 use Exception;
+use FOS\RestBundle\Controller\Annotations\Post;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 /**
  * Class DrinkController.
@@ -17,9 +23,13 @@ class DrinkController extends BaseController
     /** @var DrinkService */
     private $drinkService;
 
-    public function __construct(DrinkService $drinkService)
+    /** @var DrinkTypeService */
+    private $drinkTypeService;
+
+    public function __construct(DrinkService $drinkService, DrinkTypeService $drinkTypeService)
     {
         $this->drinkService = $drinkService;
+        $this->drinkTypeService = $drinkTypeService;
     }
 
     /**
@@ -44,8 +54,41 @@ class DrinkController extends BaseController
         );
     }
 
-    public function postDrinksAction()
+    /**
+     * @Post("/drinks")
+     * @ParamConverter("drinkRequest", converter="fos_rest.request_body")
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="body",
+     *     description="Request Body",
+     *     required=true,
+     *     @Model(type=DrinkRequest::class)
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns the created drink.",
+     *     @SWG\Schema(
+     *         type="object",
+     *         @SWG\Property(property="data", ref=@Model(type=Drink::class))
+     *     )
+     * )
+     *
+     * @return Response
+     *
+     * @throws FormValidationException
+     * @throws Exception
+     */
+    public function postDrinksAction(DrinkRequest $drinkRequest, ConstraintViolationListInterface $validationErrors)
     {
+        if (count($validationErrors) > 0) {
+            throw new FormValidationException($validationErrors);
+        }
+
+        $drink = $drinkRequest->getDrink($this->drinkTypeService);
+
+        return $this->respondSuccess(
+            $this->drinkService->createDrink($drink)
+        );
     }
 
     /**
