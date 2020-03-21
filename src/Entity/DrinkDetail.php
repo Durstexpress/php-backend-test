@@ -27,7 +27,8 @@ trait DrinkDetail
 
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotBlank()
+     * @Assert\NotNull
+     * @Assert\Type(type="bool")
      * @SWG\Property(description="The name of the drink.")
      * @Serializer\Type("bool")
      * @Serializer\Expose()

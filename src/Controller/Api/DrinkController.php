@@ -9,6 +9,7 @@ use App\Service\DrinkService;
 use App\Service\DrinkTypeService;
 use Exception;
 use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Put;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Swagger\Annotations as SWG;
@@ -73,13 +74,13 @@ class DrinkController extends BaseController
      *     )
      * )
      *
-     * @return Response
-     *
      * @throws FormValidationException
      * @throws Exception
      */
-    public function postDrinksAction(DrinkRequest $drinkRequest, ConstraintViolationListInterface $validationErrors)
-    {
+    public function postDrinksAction(
+        DrinkRequest $drinkRequest,
+        ConstraintViolationListInterface $validationErrors
+    ): Response {
         if (count($validationErrors) > 0) {
             throw new FormValidationException($validationErrors);
         }
@@ -110,11 +111,56 @@ class DrinkController extends BaseController
         );
     }
 
-    public function putDrinkAction(int $id)
-    {
+    /**
+     * @Put("/drinks/{id}")
+     * @ParamConverter("drinkRequest", converter="fos_rest.request_body")
+     * @SWG\Parameter(
+     *     name="body",
+     *     in="body",
+     *     description="Request Body",
+     *     required=true,
+     *     @Model(type=DrinkRequest::class)
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Returns the updated drink.",
+     *     @SWG\Schema(
+     *         type="object",
+     *         @SWG\Property(property="data", ref=@Model(type=Drink::class))
+     *     )
+     * )
+     *
+     * @return Response
+     *
+     * @throws FormValidationException
+     * @throws Exception
+     */
+    public function putDrinkAction(
+        int $id,
+        DrinkRequest $drinkRequest,
+        ConstraintViolationListInterface $validationErrors
+    ) {
+        if (count($validationErrors) > 0) {
+            throw new FormValidationException($validationErrors);
+        }
+
+        $drink = $drinkRequest->getDrink(
+            $this->drinkTypeService,
+            $this->drinkService->getDrinkById($id)
+        );
+
+        return $this->respondSuccess(
+            $this->drinkService->createDrink($drink)
+        );
     }
 
-    public function deleteDrinkAction(int $id)
+    /**
+     * @throws Exception
+     */
+    public function deleteDrinkAction(int $id): Response
     {
+        $this->drinkService->deleteDrinkById($id);
+
+        return $this->respond([], Response::HTTP_NO_CONTENT);
     }
 }

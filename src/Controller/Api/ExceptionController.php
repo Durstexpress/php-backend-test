@@ -10,7 +10,7 @@ use App\Response\BadResponse;
 use App\Response\FormValidationResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class ExceptionController.
@@ -24,12 +24,8 @@ class ExceptionController extends BaseController
         $exception = $parameters->get('exception');
 
         switch (true) {
-            case $exception instanceof NotFoundHttpException:
-                $data = new BadResponse('Endpoint NotFound');
-                $statusCode = Response::HTTP_NOT_FOUND;
-                break;
-
             case $exception instanceof NotFoundException:
+            case $exception instanceof HttpException:
             case $exception instanceof AppException:
                 $data = new BadResponse($exception->getMessage());
                 $statusCode = $exception->getStatusCode();
@@ -44,7 +40,7 @@ class ExceptionController extends BaseController
                 break;
 
             default:
-                $data = new BadResponse('An error has happened');
+                $data = new BadResponse($exception->getMessage());
                 $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
