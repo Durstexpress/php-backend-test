@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Drinks List{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="py-4 text-center">
+            <h2>All Drinks</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                {% include 'web/partials/_message.html.twig' %}
+
+                {% if drinks %}
+                    <div class="pb-4 text-center">
+                        <a href="{{ url('web_drink_create') }}" class="btn btn-lg btn-success text-white">
+                            Add Drink
+                        </a>
+                    </div>
+
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Package</th>
+                            <th scope="col">Contains Alcohol</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Bottle Deposit Price</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for drink in drinks %}
+                            <tr>
+                                <th scope="row">{{ drink.id }}</th>
+                                <td>{{ drink.name }}</td>
+                                <td>{{ drink.type.name }}</td>
+                                <td>{{ drink.package }}</td>
+                                <td>{{ drink.containsAlcohol ? 'Yes' : 'No' }}</td>
+                                <td>{{ drink.price }}</td>
+                                <td>{{ drink.bottleDepositPrice }}</td>
+                                <td>
+                                    <a href="{{ url('web_drink_show', { 'drink': drink.id }) }}"
+                                       class="badge badge-info">
+                                        View
+                                    </a>
+                                    <a href="{{ url('web_drink_edit', { 'drink': drink.id }) }}"
+                                       class="badge badge-success">
+                                        Edit
+                                    </a>
+                                    <a href="{{ url('web_drink_delete', { 'drink': drink.id }) }}"
+                                       class="badge badge-danger">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                No drink has been found in our system! Why not add a new one?
+                            </h5>
+
+                            <a href="{{ url('web_drink_create') }}" class="btn btn-lg btn-success text-white">
+                                Add Drink
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

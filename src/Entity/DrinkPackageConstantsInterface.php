@@ -10,10 +10,10 @@ interface DrinkPackageConstantsInterface
     const PACKAGE_OTHERS = 'Others';
 
     const AVAILABLE_PACKAGES = [
-        self::PACKAGE_CAN,
-        self::PACKAGE_GLASS,
-        self::PACKAGE_PLASTIC,
-        self::PACKAGE_OTHERS
+        self::PACKAGE_CAN => self::PACKAGE_CAN,
+        self::PACKAGE_GLASS => self::PACKAGE_GLASS,
+        self::PACKAGE_PLASTIC => self::PACKAGE_PLASTIC,
+        self::PACKAGE_OTHERS => self::PACKAGE_OTHERS
     ];
 }
 

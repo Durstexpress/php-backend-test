@@ -31,7 +31,7 @@ class Money
      * @param $amount
      * @param string $currency
      */
-    public function __construct($amount, $currency = 'EUR')
+    public function __construct($amount = null, $currency = 'EUR')
     {
         $this->setAmount($amount);
         $this->setCurrency($currency);
@@ -117,6 +117,10 @@ class Money
      */
     public static function convertToMoney($value): Money
     {
+        if (empty($value)) {
+            return new Money();
+        }
+
         if (!$value instanceof Money) {
             $value = self::createFromString($value);
         }
