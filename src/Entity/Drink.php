@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DrinkRepository")
@@ -18,6 +19,7 @@ class Drink
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -40,6 +42,7 @@ class Drink
      * @var Money
      *
      * @ORM\Embedded(class="Money")
+     * @Assert\Valid()
      */
     private $price;
 
@@ -47,6 +50,7 @@ class Drink
      * @var Money
      *
      * @ORM\Embedded(class="Money")
+     * @Assert\Valid()
      */
     private $bottleDepositPrice;
 
