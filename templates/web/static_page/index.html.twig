@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="jumbotron mt-3">
+            <h1>Welcome to Durstexpress!</h1>
+
+            <p class="lead">
+                You can manage all our drinks from here.
+            </p>
+
+            <a class="btn btn-lg btn-primary" href="{{ url('web_drink_index') }}" role="button">
+                Manage Drinks
+            </a>
+        </div>
+    </div>
+{% endblock %}

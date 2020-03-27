@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Viewing Drink #{{ drink.id }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="py-4 text-center">
+            <h2>Drink #{{ drink.id }}</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                {% include 'web/partials/_message.html.twig' %}
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ drink.name }}</h5>
+                        <p class="card-text">
+                            <span class="d-block">Price: {{ drink.price }}</span>
+                            <span class="d-block">Bottle Deposit Price: {{ drink.bottleDepositPrice }}</span>
+
+                            <span class="badge badge-info">{{ drink.type.name }}</span>
+                            {% if drink.containsAlcohol %}
+                                <span class="badge badge-danger">Alcoholic</span>
+                            {% else %}
+                                <span class="badge badge-success">Alcohol Free</span>
+                            {% endif %}
+                        </p>
+
+                        <a href="{{ url('web_drink_edit', { 'drink': drink.id }) }}" class="badge badge-success">
+                            Edit
+                        </a>
+
+                        <a href="{{ url('web_drink_delete', { 'drink': drink.id }) }}" class="badge badge-danger">
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-4">
+            <a href="{{ url('web_drink_index') }}" class="btn btn-block btn-info">
+                Back to Drinks List
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+.idea/
+.git/
+vendor/
+var/
+Dockerfile
+docker-compose.yml
+docker-compose.yml.dist
