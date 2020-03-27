@@ -6,9 +6,46 @@ services:
       context: ./
       dockerfile: docker/Dockerfile
     ports:
-      - '8000:80/tcp' # <--- change to any free port on yours machine
+      - '80:80'
     volumes:
       - ./:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - denet
     environment:
       - 'APP_ENV=dev'
       - 'APP_SECRET=14523d2734f4c2a13137acc93ae9774a'
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 12345
+      MYSQL_DATABASE: dursttestdb
+    volumes:
+      - mysql-data:/var/lib/mysql:rw
+    networks:
+      - denet
+
+  encore:
+    image: node:10-alpine
+    ports:
+      - "8080:8080"
+    networks:
+      - denet
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/html
+    command: ["yarn", "dev-server", "--host=0.0.0.0"]
+
+networks:
+  denet:
+    driver: "bridge"
+
+volumes:
+  mysql-data:
+    driver: "local"
