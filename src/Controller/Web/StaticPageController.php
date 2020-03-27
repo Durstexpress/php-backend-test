@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class StaticPageController extends AbstractController
 {
     /**
-     * @Route("/web/static/page", name="web_static_page")
+     * @Route("/", name="web_home")
      */
     public function index()
     {
